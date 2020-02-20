@@ -1,18 +1,9 @@
 import socket
 
-ip = "localhost"    #85.140.2.221
+def sendData(data):
+    sock = socket.socket()
+    sock.connect(("35.194.254.250", 8303))
+    sock.send(str.encode(data))
+    sock.close()
 
-nickname = input()
-
-sock = socket.socket()
-sock.connect((ip, 9090))
-if sock.recv(1024) == b"0":
-    sock.send(b"0")
-
-while True:
-    message = input("Message: ")
-    sock.send(bytes(f"{nickname}: {message}", "utf8"))
-    if message == "stop":
-        break
-
-sock.close()
+sendData("312")
