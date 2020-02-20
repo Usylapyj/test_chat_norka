@@ -1,31 +1,15 @@
-import requests
+#! /usr/bin/python
+
+import os
+import sys
 import socket
 
-ip = requests.get('https://ip.beget.ru/').text[:-1]
-port = 9090
+host = "aa.bb.cc.dd"
+port = 1234
 
-def listen():
-    data = conn.recv(1024)
-    if not data:
-        return
-    elif data == b"stop":
-        conn.close()
-        exit()
-        return
-    return data
+remote_ip = socket.gethostbyname(host)
 
-serv = socket.socket()
-serv.bind((ip, port))
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-print(f'Server was started on {ip}:9090')
-
-serv.listen(1)
-conn, addr = serv.accept()
-print(f"{addr} was connected")
-conn.send(b"0")
-
-while True:
-    f = listen()
-    print(f)
-
-conn.close()
+s.connect((remote_ip, port))
+print(s.recv(1024))
